@@ -14,11 +14,16 @@ FROM python:3.11-buster AS app
 
 WORKDIR /app
 
+# set a special env var in the container
+ENV PYTHONUNBUFFERED=1
+
+# copy the installed dependencies from the builder stage, as well as the application code
 COPY --from=builder /app /app
 COPY ./entrypoint.sh /app
+COPY --from=builder /usr/local /usr/local
 
 EXPOSE 8000
-#stackoverflow says this will trim and fix the weird /n problems from windows from the .sh
+#stackoverflow says this will trim and fix the weird /n problems from windows from the s
 RUN sed -i -e 's/\r$//' /app/entrypoint.sh
 
 ENTRYPOINT ["/app/entrypoint.sh"]
