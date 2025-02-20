@@ -23,7 +23,7 @@ COPY ./entrypoint.sh /app
 COPY --from=builder /usr/local /usr/local
 
 EXPOSE 8000
-#stackoverflow says this will trim and fix the weird /n problems from windows from the s
+#stackoverflow says this will trim and fix the weird /n problems from windows from linux
 RUN sed -i -e 's/\r$//' /app/entrypoint.sh
 
 ENTRYPOINT ["/app/entrypoint.sh"]
