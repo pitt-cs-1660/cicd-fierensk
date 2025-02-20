@@ -87,7 +87,7 @@ jobs:
         with:
           platforms: linux/amd64,linux/arm64
 
-      # build and push the image
+      # build and push the image, did docker config
       - name: Build and Push
         uses: docker/build-push-action@v6
         with:
