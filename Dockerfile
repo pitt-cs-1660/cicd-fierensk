@@ -19,13 +19,8 @@ ENV PYTHONUNBUFFERED=1
 
 # copy the installed dependencies from the builder stage, as well as the application code
 COPY --from=builder /app /app
-COPY ./entrypoint.sh /app
 COPY --from=builder /usr/local /usr/local
 
 EXPOSE 8000
-#stackoverflow says this will trim and fix the weird /n problems from windows from linux
-RUN sed -i -e 's/\r$//' /app/entrypoint.sh
-
-ENTRYPOINT ["/app/entrypoint.sh"]
 
 CMD ["uvicorn", "cc_compose.server:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
